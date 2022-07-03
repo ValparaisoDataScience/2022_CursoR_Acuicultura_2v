@@ -1,0 +1,156 @@
+---
+title: "PRESENTACIÓN DEL CURSO"
+subtitle: 'Introducción al Análisis de datos con R para la Acuicultura.'
+author: Dr. José Gallardo Matus
+institute: Pontificia Universidad Católica de Valparaíso 
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+    colortheme: "seahorse"
+    fonttheme: "professionalfonts"
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# PLAN DE LA CLASE INAUGURAL
+
+- Presentación profesores.
+
+- Formación en Ciencia de Datos para acuicultura.
+
+- Revisión programa del curso introductorio.
+
+- Condiciones AEA abierta.
+
+- Recursos de comunicación y aprendizaje.
+
+- Presentación de los participantes.
+
+# PROFESORES Y COORDINACIÓN
+
+**Dr. José Gallardo**  
+Profesor de genética y genómica aplicada  
+Doctor en Ciencias    
+Profesor adjunto PUCV  
+
+**Dr. María Angélica Rueda**  
+Profesora de modelamiento predictivo   
+Doctora en Ciencias Agropecuarias  
+Investigadora postdoctoral PUCV
+
+**Lic. Jaqueline Flores**  
+Coordinadora postulación y matrículas.
+
+# FORMACIÓN CIENCIA DE DATOS EN ACUICULTURA
+
+1. **Programas consolidados**  
+a) Curso Introductorio (2 versiones): 19 graduados + 13 estudiantes.
+b) Diplomado (3 versiones): 67 graduados.
+c) Doctorado (PUCV, UCHILE, UCN): Casi 100 graduados.
+
+2. **Excelencia académica**  
+a) PUCV Acreditada por 7 años (todas las áreas).
+b) Doctorado acreditado por 5 años.
+c) Cursos y diplomas con alta valoración de graduados.
+d) Recursos de enseñanza y aprendizaje de nivel mundial.
+e) Vinculación permanente con la industria.  
+
+# RUTA FORMACIÓN CIENCIA DE DATOS PUCV
+
+**CURSO INTRODUCTORIO** 
+
+1. Fundamentos programación con R.
+2. Fundamentos exploratorio y análisis de datos.  
+3. Software R y Rstudio.  
+
+**DIPLOMADO**  
+
+1. Investigación reproducible con R.  
+2. Análisis exploratorio y análisis de datos avanzado.  
+3. Reportes dinámicos y comunicación efectiva.  
+4. Software R, Rstudio, Rmarkdwon y Github.    
+
+**CURSO AVANZADO (en preparación)**  
+
+1. Bases de datos relacionales.
+2. Arboles de clasificación y regresión.  
+3. Modelos de riesgo proporcional de COX.  
+
+# OBJETIVOS DEL CURSO INTRODUCTORIO
+
+Al finalizar el curso los alumnos serán capaces de usar el lenguaje de programación R para:\
+&nbsp;      
+
+1. Realizar análisis exploratorio de datos en acuicultura.\
+&nbsp;
+
+2. Aplicar modelos básicos de inferencia estadística y modelamiento predictivo para el análisis de datos de acuicultura.  
+
+# CONTENIDOS
+
+1. Introducción a la Programación con R y Rstudio.
+2. Variables aleatorias continuas y discretas.
+3. Análisis exploratorio de datos con ggplot2.
+4. Manipulación de datos con dplyr.
+5. Inferencia estadística.
+6. Análisis de varianza y covarianza.
+7. Variables aleatorias categóricas y pruebas no paramétricas.
+8. Análisis de regresión lineal simple.
+9. Análisis de regresión logística.
+10. Análisis de sobrevivencia.
+
+# CERTIFICACIÓN 
+
+Se entregará certificado de participación a los alumnos que cumplan los siguientes requisitos:\
+&nbsp;    
+
+- 80% de asistencia a las clases sincrónicas.\
+&nbsp;    
+- 80% de las tareas completadas.
+
+# REQUISITOS DE INGRESO
+
+- **Título**: Al menos un curso de estadística o similar aprobado de nivel universitario. 
+
+- **Programación básica con R**: Deseable pero no es excluyente.
+Alumnos sin experiencia previa deben considerar 4 horas de estudio y autoaprendizaje por semana para poder alcanzar una comprensión avanzada de los objetivos de aprendizaje del curso.
+
+- **Inglés**: Los softwares R y  Rstudio, y todas los paquetes de análisis estadístico que se usarán en el curso solo están disponibles en inglés. Alumnos sin competencias de lectura en inglés no deberían tomar el curso.  
+
+# CONDICIONES DE OPERACIÓN
+
+- **Nombre de la actividad de extensión académica:**  
+CURSO INTRODUCCIÓN AL ANÁLISIS DE DATOS CON R PARA LA ACUICULTURA.
+
+- **Resolución:**  
+106/2022.
+
+- **Fecha de ejecución:**  
+INICIO: 05/07/2022
+TÉRMINO: 30/07/2022  
+
+- **Consultas, sugerencias y reclamos del curso:**
+<acuicultura@pucv.cl>  
+<oct@pucv.cl>  
+
+# RECURSOS DE APRENDIZAJE Y COMUNICACIÓN
+
+- **Repositorio**: Todo el material disponible en Google Drive.
+
+- **Material docente**: Diapositivas de clases, videos (solo disponibles por 7 días), guías de aprendizaje y códigos de programación para el análisis de datos con R.
+
+- **SLACK**: Foro de comunicación y preguntas.
+
+- **R y Rstudio**: Acceso a Rstudio.cloud por 2 meses.
+
+# PRESENTACIÓN DE LOS PARTICIPANTES
+
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("Welcome.png")
+```
+
