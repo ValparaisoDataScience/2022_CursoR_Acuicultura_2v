@@ -44,7 +44,10 @@ Doctora en Ciencias Agropecuarias
 Investigadora postdoctoral PUCV
 
 **Lic. Jaqueline Flores**  
-Coordinadora postulación y matrículas.
+Coordinadora postulación y matrículas
+
+**Mag. Marco Antonio Ontiveros**  
+Ayudante curso R acuicultura
 
 # FORMACIÓN CIENCIA DE DATOS EN ACUICULTURA
 
