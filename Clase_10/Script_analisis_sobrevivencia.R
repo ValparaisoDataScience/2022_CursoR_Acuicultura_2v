@@ -1,0 +1,42 @@
+# ----------------------------------------------------------
+# Script para análisis de sobrevivencia.
+# Dr. José Gallardo Matus
+# 30 julio 2022
+# Introducción al Análisis de datos con R para la Acuicultura.
+# ----------------------------------------------------------
+
+# Habilita paquetes
+library(survival)
+library(ggplot2)
+library(survminer)
+library(ggpubr)
+library(readxl)
+library(dplyr)
+library(tidyverse)
+
+# Importa, explora set de datos y transforma variables de sobrevivencia
+larv <- read_excel("surv_dat.xlsx", sheet = 1)
+head(larv)
+larv$sample_id = as.factor(larv$sample_id)
+larv$antibiotico = as.factor(larv$antibiotico)
+summary(larv)
+
+# Crea objeto tipo sobrevivencia
+surv_obj <- Surv(larv$stime, larv$status) # library(surviva)
+class(surv_obj)
+surv_obj
+
+# Cálcula probabilidad de sobrevivencia de Kaplan-Meier y otras.
+ps = survfit(formula=Surv(stime, status) ~ 
+               strata(antibiotico), data=larv, na.action= na.exclude,type="kaplan-meier")
+
+summary(ps)
+
+# Permite probar si existen o no diferencias entre dos o más curvas de sobrevivencia
+
+test_surv <- survdiff(formula=Surv(stime, status) ~ antibiotico, data=larv)
+test_surv
+
+# Grafica de sobrevivencia con survminer
+ggsurvplot (ps, conf.int = TRUE, ggtheme = theme_bw())
+

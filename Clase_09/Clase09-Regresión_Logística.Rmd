@@ -1,0 +1,281 @@
+---
+title: "Clase 9 Regresión logística"
+author: Dra. María Angélica Rueda Calderón
+institute: Pontificia Universidad Católica de Valparaíso
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+    colortheme: "seahorse"
+    fonttheme: "professionalfonts"
+    includes:
+      in_header: mystyle.tex
+subtitle: 'Curso Introducción al análisis de datos con R para la Acuicultura'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl)
+library(stats)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+```
+
+# **PLAN DE LA CLASE**
+
+**1.- Introducción**
+    
+- Regresión logística ¿Qué es y para que sirve?
+
+- Ejemplo de modelo de regresión logística.
+
+- Interpretación de regresión logística con R.
+
+**2.- Práctica con R y Rstudio cloud**
+
+- Ajustar modelos de regresión logística.
+
+- Realizar gráficas avanzadas con ggplot2.
+
+
+# **REGRESIÓN LOGÍSTICA**
+
+La regresión logística es una técnica de modelamiento predictivo en la cual la probabilidad de un resultado o variable dicotómica se relaciona con una o más variables predictoras.  
+
+- Predecir la ocurrencia de una enfermedad en camarón. [Leung and Tran, 2000](https://doi.org/10.1016/S0044-8486(00)00300-8)  
+
+- Percepción del beneficio o impacto de la acuicultura. [Alexander et al., 2016](https://doi.org/10.1016/j.envsci.2016.04.020)  
+
+- Riesgo de Co-infection ISA - Caligus en salmon. [Valdes-Donoso et al., 2013](https://onlinelibrary.wiley.com/doi/10.1111/jfd.12070)  
+
+- Predicción de canibalismo en bacalao de estuario. [Hseu and Huang, 2012](https://onlinelibrary.wiley.com/doi/10.1111/are.12031)   
+
+# **ECUACIÓN DE LA REGRESIÓN LOGÍSTICA**
+
+- Modelo de regresión logística en formato lineal:
+
+$$log (\frac{p}{1-p}) = \beta_0 + \beta_1X_1$$
+
+- Forma de calcular la probabilidad de que el evento éxito ocurra dada la variable predictora considerada:
+
+$$p(Y=1|X_1) = \frac{e^{\beta_0 + \beta_1X_1}}{1 + e^{\beta_0 + \beta_1X_1}}$$
+
+- Modelo de regresión logística múltiple en formato lineal:
+
+$$log (\frac{p}{1-p}) = \beta_0 + \beta_1X_1 + \beta_2X_2 +... + \beta_pX_p$$
+
+# **SUPUESTOS REGRESIÓN LOGÍSTICA**
+
+Las principales condiciones que este modelo requiere son:
+
+* Respuesta binaria: La variable respuesta debe ser binaria.
+
+* Independencia: las observaciones deben ser independientes.
+
+* Multicolinealidad: se requiere de muy poca a ninguna multicolinealidad entre los predictores (para regresión logística múltiple).
+
+* Linealidad: entre la variable independiente y el logaritmo natural de odds **(Cociente de chances)**.
+
+# **COCIENTE DE CHANCES**
+
+- COCIENTE DE CHANCES = ODDS RATIO
+
+- Supongamos que tenemos 10 salmones machos (7 maduros y 3 inmaduros) y 10 salmones hembras (3 maduras y 7 inmaduras). 
+
+- ¿Qué sexo tiene mayor chance de madurar?
+- ¿Cuál es la chance de madurar de los machos respecto de las hembras?
+
+```{r, echo=FALSE, out.width = '60%', fig.align='center'}
+knitr::include_graphics("Odds.png")
+```
+
+
+# **CALCULO DE CHANCES**
+
+```{r, echo=FALSE, out.width = '60%', fig.align='center'}
+knitr::include_graphics("Odds.png")
+```
+
+- Primero calculamos la chanche en los machos.
+
+a) $P_M(Maduro) = 7/10 = 0.7$
+
+b) $P_M(Inmaduro) = 1- P_M(Maduro) = 1-0.7=0.3$
+
+c) $odds_M = P_M(Maduro)/P_M(Inmaduro)= 0.7/0.3= 2.333$
+
+- Calcule usted la chanche en las hembras.
+
+
+# **CALCULO DE CHANCES**
+
+- Calculamos la chance en las hembras.
+
+a) $P_H(Maduro) = 3/10 = 0.3$  
+
+b) $P_H(Inmaduro) = 1- P_H(Maduro) = 1-0.3=0.7$  
+
+c) $odds_H = P_H(Maduro)/P_H(Inmaduro)= 0.3/0.7 = 0.429$  
+
+*Calcular el cociente de chances (Odds Ratio)*
+
+- ¿Cuál es la chance de madurar de los machos respecto de las hembras?
+
+$$OR = odds_M/odds_H= 2.333/0.429 = 5.44$$
+
+# **REGRESIÓN LOGÍSTICA CON R**
+
+```{r, echo=FALSE}
+datos <- read_excel("datos.xlsx")
+datos$Sexo <- as.factor(datos$Sexo)
+datos$Madurez <- as.factor(datos$Madurez)
+```
+
+- glm: Ajusta modelos lineales generalizados.  
+- family= gaussian, binomial, otras.
+```{r, echo=TRUE}
+modelo_logit <- glm(Madurez ~ Sexo, 
+                    family= binomial, data = datos)
+
+summary(modelo_logit)$coef %>% kable(digits = 3)
+
+```
+
+# **COCIENTE DE CHANCES (ODDS RATIO) CON R**
+
+- Se calcula con el exponencial de los coeficientes del modelo de regresión logística.
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE, error=FALSE}
+logit_or <- exp(cbind(OR = coef(modelo_logit), 
+                     confint(modelo_logit)))
+
+logit_or %>% kable(digits = 3)
+
+```
+
+
+# **ESTUDIO DE CASO: MADURACIÓN EN SALMÓN DEL ATLÁNTICO**
+
+- En este estudio de caso trabajaremos con un subconjunto de la base de datos relacionada a la maduración en salmones machos (n=90). 
+
+|  **Variable** | **Descripción**| 
+|:-------------|:------------------|
+| **Genotype** | Genotipo Vgll3: EE-EL-LL| 
+| **Gonad** | Peso de gónada |
+| **Maturation** | Estado de maduración (1: maduro) o (0: inmaduro) | 
+
+- Determinaremos si la probabilidad de maduración está relacionada con el peso de la gónada. 
+- Como tarea usted evaluará probabilidad de maduración en función del genotipo del pez (gen Vgll3 de maduración).
+
+```{r, echo=FALSE}
+maduracion <- read_excel("Maturation.xlsx")
+maduracion$Genotype <- as.factor(maduracion$Genotype)
+maduracion <- maduracion%>% 
+              select("Fish","Genotype","Gonad","GSI","Maturation")
+mod_logit <- glm(Maturation ~ Gonad, 
+                family= binomial, data = maduracion)
+```
+
+# **RELACIÓN MADURACIÓN VS PESO DE GÓNADA**
+
+```{r, message=FALSE, warning=FALSE}
+
+My_Theme = theme(
+  axis.title.x = element_text(size = 20),
+  axis.text.x = element_text(size = 20),
+  axis.title.y = element_text(size = 20),
+  axis.text.y = element_text(size = 20))
+
+p<- ggplot(data = maduracion, aes(x = Gonad, y = Maturation)) +
+  geom_point(aes(color = as.factor(Maturation)), shape = 1) + 
+  theme(axis.text.x = element_text(size = 10,face="bold",colour="black"))+
+  theme(axis.text.y = element_text(size = 10,face="bold",colour="black"))+
+  theme_bw()  +
+  labs(x= "Peso de gónada", y = "Maduración")+
+  theme(legend.position = "none")+ 
+  theme(panel.border=element_blank(), axis.line=element_line())
+p+My_Theme
+```
+
+# **REGRESIÓN LOGÍSTICA SIMPLE**
+
+```{r, echo=TRUE}
+mod_logit <- glm(Maturation ~ Gonad, 
+                family= binomial, data = maduracion)
+summary(mod_logit)$coef %>% kable()
+```
+
+# **PREDICCIÓN REGRESION LOGÍSTICA**
+
+```{r,message=FALSE, warning=FALSE}
+# Representación gráfica del modelo.
+s <- ggplot(data = maduracion, aes(x = Gonad, y = Maturation)) +
+  geom_point(aes(color = as.factor(Maturation)), shape = 1) + 
+  theme(axis.text.x = element_text(size = 10,face="bold",colour="black"))+
+  theme(axis.text.y = element_text(size = 10,face="bold",colour="black"))+
+  geom_hline(aes(yintercept=0.50), color="red")+ 
+  stat_function(fun = function(x){predict(mod_logit,
+                                          newdata = data.frame(Gonad = x),
+                                          type = "response")}) +
+  theme_bw() +
+  labs(title = "Regresión logística", x="Peso de gónada",
+       y = "Probabilidad de Maduración") +
+  theme(legend.position = "none")+
+  theme(panel.border=element_blank(), axis.line=element_line())
+s+My_Theme
+```
+
+# **PREDICCIÓN MADURACIÓN**
+
+- Usando la ecuación podemos predecir probabilidad de madurar a un peso de gónada determinado 4g. v/s 8g. 
+
+```{r, echo=FALSE}
+#Predecir si un salmón madura o no para un peso de gónada de 4
+Prob.mad_4 <- data.frame(Gonad=4)
+Prediccion_logis_4 <- predict(mod_logit, Prob.mad_4, type = "response")
+Prediccion_logis_4 <- data.frame(Prediccion_logis_4)
+colnames(Prediccion_logis_4) <- c("Probabilidad de maduración")
+
+#Predecir si un salmón madura o no para un peso de gónada de 8
+Prob.mad_8 <- data.frame(Gonad=8)
+Prediccion_logis_8 <- predict(mod_logit, Prob.mad_8, type = "response")
+Prediccion_logis_8 <- data.frame(Prediccion_logis_8)
+colnames(Prediccion_logis_8) <- c("Probabilidad de maduración")
+
+Peso_Gonada <- c(4,8)
+tabla1 <- rbind(Prediccion_logis_4,Prediccion_logis_8)
+tabla <- data.frame(Peso_Gonada,tabla1)
+colnames(tabla) <- c("Peso de Gónada", "Predicción")
+rownames(tabla) <- NULL
+kbl(tabla,align='cccc',
+    linesep=c("","","","","",""), 
+    caption = "Predicciones de maduración según el peso de la gónada.")
+```
+
+# **COCIENTE DE CHANCES (ODDS RATIO) CON R**
+
+- **El cociente de chances (OR)**
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE, error=FALSE}
+OR_def <-exp(cbind(OR = coef(mod_logit), 
+                     confint(mod_logit)))
+
+OR_def %>% kable(digits = 3)
+
+```
+
+# **RESUMEN DE LA CLASE**
+
+**1).** Revisión de conceptos: regresión logística.
+
+**2).** Cociente de chances - Odd Ratio.
+
+**3).** Construir y ajustar modelos de regresión logística con R.
+
+**4).** Gráficas avanzadas con ggplot2.
+
+
+
+    
