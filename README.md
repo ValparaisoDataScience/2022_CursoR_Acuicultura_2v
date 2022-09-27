@@ -1,11 +1,11 @@
-# Título
+## Título
 Curso Introducción Análisis de Datos con R para la Acuicultura 2da versión - 2022
 
-**DIRIGIDO A:**
+## **DIRIGIDO A:**
 
 Estudiantes, profesionales o graduados relacionados con las ciencias de la acuicultura, incluyendo Acuicultores, Agropecuarios, Biólogos, Biólogos Marinos, Biotecnólogos, Ingenieros Pesqueros, Ingenieros Agrónomos, Oceanógrafos, Veterinarios o Zootecnistas.
 
-**PROFESORES:**  
+## **PROFESORES:**  
 
 [**JOSÉ ANDRÉS GALLARDO MATUS**](https://github.com/DrJoseGallardo)  
 Doctor en Ciencias por la Universidad de Chile, Chile.
@@ -18,7 +18,7 @@ Doctora en Ciencias Agropecuarias por la Universidad Nacional de Córdoba, Argen
 Licenciada en Matemáticas por la Universidad Industrial de Santander, Colombia.
 Investigador post-doctoral de la Pontificia Universidad Católica de Valparaíso, Chile.
 
-**CONTENIDOS**.   
+## **CONTENIDOS**.   
 Clase 1. Introducción a la Programación con R y Rstudio.  
 Clase 2. Variables aleatorias continuas y discretas.  
 Clase 3. Análisis exploratorio de datos con ggplot2.  
