@@ -18,7 +18,7 @@ Doctora en Ciencias Agropecuarias por la Universidad Nacional de Córdoba, Argen
 Licenciada en Matemáticas por la Universidad Industrial de Santander, Colombia.
 Investigador post-doctoral de la Pontificia Universidad Católica de Valparaíso, Chile.
 
-**CONTENIDOS**. 
+**CONTENIDOS**.   
 Clase 1. Introducción a la Programación con R y Rstudio.  
 Clase 2. Variables aleatorias continuas y discretas.  
 Clase 3. Análisis exploratorio de datos con ggplot2.  
